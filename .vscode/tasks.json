@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flash STM32",
+            "type": "process",
+            "command": "openocd",
+            "args": [
+                "-f",
+                "./openocd.cfg",
+                "-c",
+                "program build/Debug/${workspaceRootFolderName}.elf verify reset exit"
+            ],
+            "dependsOn": [
+                "CMake: build"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: clean_rebuild",
+            "command": "cleanRebuild",
+            "targets": [
+                "all"
+            ],
+            "preset": "${command:cmake.activeBuildPresetName}",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "CMake 模板 清理重新生成 任务"
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: build",
+            "command": "build",
+            "targets": [
+                "all"
+            ],
+            "preset": "${command:cmake.activeBuildPresetName}",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "CMake 模板 生成 任务"
+        },
+        // {
+        //     "label": "uart slaver",
+        //     "type": "process",
+        //     "command": "openocd",
+        //     "args": [
+        //         "-f",
+        //         "./openocd.cfg",
+        //         "-c",
+        //         "program build/Debug/${workspaceRootFolderName}.elf verify reset exit"
+        //     ],
+        //     "dependsOn": [
+        //         "Flash STM32"
+        //     ],
+        //     "options": {
+        //         "cwd": "${workspaceRoot}"
+        //     },
+        //     "group": {
+        //         "kind": "test",
+        //         "isDefault": true
+        //     }
+        // }
+    ]
+}
